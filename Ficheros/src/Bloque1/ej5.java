@@ -8,6 +8,7 @@ package Bloque1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,12 +19,25 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class ej5 {
+	public static void crearSubdirectorio(String directorio) {
+		//Ejemplo C:\\Ficheros;
+		
+		File fich = new File(directorio);
+		if(!fich.exists()) {
+			fich.mkdir();
+		}else {
+			if (!fich.isDirectory()) fich.mkdir();
+		}	
+	}
 
 	public static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) throws IOException{
+		String camino = "C:\\Users\\Alumno\\Desktop\\CLASE\\Programación\\Proyecto01\\Ficheros\\Equipos";
 		String linea = "";
 		String matriz [];
+		crearSubdirectorio(camino);
+		
 		HashMap<String,ArrayList<String>> equipos = new HashMap<String,ArrayList<String>>();
 		
 		try(
@@ -56,7 +70,7 @@ public class ej5 {
 			integrantes = eq.getValue();
 			
 			try(
-					BufferedWriter bw = new BufferedWriter(new FileWriter("./equipos/" + eq.getKey() + ".csv"));) {
+					BufferedWriter bw = new BufferedWriter(new FileWriter(camino+ "\\" + eq.getKey() + ".csv"));) {
 				for (String item : integrantes) bw.write(item + "\n");
 				
 			}catch(FileNotFoundException ex) {
