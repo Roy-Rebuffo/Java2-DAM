@@ -13,7 +13,7 @@ public class CListaTfnos {
 		if(fichero.exists() && !fichero.isFile()) {
 			throw new IOException(fichero.getName() + "no es un fichero");
 		}
-		fes = new RandomAccessFile(fichero,"rw");
+		fes = new RandomAccessFile(fichero,"rw");//creamos un fichero de lectura y escritura
 		
 		//es importante que la division de double para que devuelva el ultimo registro
 		nregs =(int) Math.ceil((double)fichero.length() /(double)this.tamañoReg); 
@@ -57,7 +57,6 @@ public class CListaTfnos {
 	}
 	/********************************************************************************************/
 	public boolean ponerValorEn(int i, CPersona p) throws IOException {//metodo que pone en la posicion del registro(i) una Persona (p)
-		
 		if(i>=0 && i<=nregs) {
 			if(p.tamaño()+4>tamañoReg) {
 				System.out.println("tamaño del registro excedido");
