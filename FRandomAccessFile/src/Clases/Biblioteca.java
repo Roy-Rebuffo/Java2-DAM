@@ -5,12 +5,17 @@ import java.util.Scanner;
 public class Biblioteca {
 
 	public static int menu(Scanner sc, String[] opciones) {
-		int op;
+		int op = 0;
 		do {
 			for (String items : opciones)
 				System.out.println(items);
 			System.out.print("Dime la opcion a realizar: ");
-			op = Integer.valueOf(sc.nextLine());
+			try {
+				op = Integer.valueOf(sc.nextLine());
+			} catch (NumberFormatException e) {
+				continue;
+			}
+			
 		} while (op < 1 || op > opciones.length);
 		return op;
 	}

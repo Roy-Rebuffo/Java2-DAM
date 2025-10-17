@@ -47,7 +47,8 @@ public class CListaRegistros {
 		for (int i = 0; i < nregs; i++) {//busqueda secuencial
 			r = valorEn(i);//leer la persona en la posicion (i)
 			if(referencia.equalsIgnoreCase(r.getReferencia())) {
-				r.setReferencia(null);
+				//r.setReferencia(null);
+				r.setPrecio(-100);
 				ponerValorEn(i,r);
 				return true;
 			}
@@ -56,7 +57,7 @@ public class CListaRegistros {
 	}
 	/********************************************************************************************/
 	public boolean ponerValorEn(int i, CRegistro r) throws IOException {
-		if (i >= 0 && i <= nregs) {
+		if (i >= 0 && i <= nregs) {//si el valor esta dentro de los limites
 			if (r.tamaño() >= tamañoReg) {
 				System.err.println("Numero de registros excedido");
 			} else {

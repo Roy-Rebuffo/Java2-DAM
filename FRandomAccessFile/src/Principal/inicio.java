@@ -139,24 +139,40 @@ public class inicio {
 	    	for(int i=0;i<lis.longitud();i++) {//recorremos a las personas
 	    		r=lis.valorEn(i);
 	    		//if(!r.getReferencia().isEmpty()) nuevo.añadir(r);// si no hay referencia vacia guardamos en el nuevo fichero
-	    		if(r.getReferencia() == null) nuevo.añadir(r);
-
+	    		//if(r.getReferencia() == null) nuevo.añadir(r);
+	    		if(r.getPrecio() != -100) nuevo.añadir(r);
+	    		
 	    	}
 	    	lis.cerrar();
 	    	nuevo.cerrar();
 	    	factual.delete();
 	    	if (!fnuevo.renameTo(factual)) throw new IOException("no se renombro el fichero");
 	    }
-	  
 	  /********************************************************************************/
 	public static void main(String[] args) throws IOException {
-		//menuListaTfnos();
-		menuListaRegistros();
+		File fichero = null;
+
+	    while (true) {
+	        System.out.println("Introduce el nombre del fichero (sin extensión): ");
+	        String nombreFichero = sc.nextLine();
+
+	        fichero = new File(nombreFichero + ".dat");
+
+	        if (fichero.exists()) {
+	            System.out.println("✅ Fichero encontrado: " + fichero.getAbsolutePath());
+	            break;
+	        } else {
+	            System.err.println("❌ El fichero no existe. Intenta de nuevo.\n");
+	        }
+	    }
+	    menuListaTfnos(fichero);
+	    menuListaRegistros(fichero);
 	}
 	
-	public static void menuListaRegistros() throws IOException {
-		File fichero = new File ("listaRegistros.dat");
-		CListaRegistros listin = new CListaRegistros(fichero);
+	public static void menuListaRegistros(File f) throws IOException {
+		
+		//File fichero = new File ("listaRegistros.dat");
+		CListaRegistros listin = new CListaRegistros(f);
 		String basura;
 		String referencia = null;
 		boolean eliminado = false;
@@ -202,7 +218,7 @@ public class inicio {
 				listarRegistro(listin);
 				break;
 			case 7 : //actualizar
-				if(eliminado) actualizarRegistro(fichero,listin);
+				if(eliminado) actualizarRegistro(f,listin);
 			}
 			if(op!=7) {
 				System.out.print("Presione una tecla para continuar");
@@ -212,9 +228,9 @@ public class inicio {
 		} while (op!=7);
 		}
 	
-	public static void menuListaTfnos () throws IOException {
-		File fichero = new File("listintfn.dat");
-		CListaTfnos listin =  new CListaTfnos(fichero); 
+	public static void menuListaTfnos (File f) throws IOException {
+		//File fichero = new File("listintfn.dat");
+		CListaTfnos listin =  new CListaTfnos(f); 
 		String basura;
 		String nombre = null;
 		int pos = 0;
@@ -261,7 +277,7 @@ public class inicio {
 				listar(listin);
 				break;
 			case 7 : //actualizar
-				if(eliminado) actualizar(fichero,listin);
+				if(eliminado) actualizar(f,listin);
 			}
 			if(op!=7) {
 				System.out.print("Presione una tecla para continuar");
